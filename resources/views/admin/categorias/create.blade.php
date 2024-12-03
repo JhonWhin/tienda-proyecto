@@ -4,13 +4,13 @@
 
 <div class="row mb-2">
     <div class="col-sm-6">
-      <h1 class="m-0 text-dark">Categorias</h1>
+      <h1 class="m-0 text-dark">NUEVA CATEGORIA</h1>
     </div><!-- /.col -->
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('categorias.index') }}">Categoria</a></li>
-        <li class="breadcrumb-item active">Crear</li>
+        <li class="breadcrumb-item"><a href="{{ route('categorias.index') }}">Categoría</a></li>
+        <li class="breadcrumb-item active">Nuevo</li>
       </ol>
     </div><!-- /.col -->
   </div><!-- /.row -->
@@ -20,24 +20,40 @@
 @section('content')
 <div class="card card-primary">
   <div class="card-header">
-    <h3 class="card-title">Quick Example</h3>
+    <h3 class="card-title"></h3>
   </div>
   <!-- /.card-header -->
   <!-- form start -->
-  <form role="form">
+
+  <form action="{{ route('categorias.store') }}" method="post">
+      @csrf
     <div class="card-body">
+      @if ($errors->any())
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+          </div>
+      @endif
       <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre">
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <label for="mostrar" class="form-label">Mostrar</label>
+        <select class="custom-select" id="mostrar" name="mostrar">
+          <option selected value='falso'>No visible</option>
+          <option value='verdadero'>Visible</option>
+        </select>
       </div>
+    </div>
     <!-- /.card-body -->
 
     <div class="card-footer">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-success">Guardar</button>
     </div>
   </form>
 </div>
